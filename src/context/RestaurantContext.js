@@ -5,18 +5,23 @@ const RestaurantContext = createContext({
 	cuisines: [],
     restaurants: [],
 	restaurantDispatch : () => {},
-	currentCuisine: []
+	currentCuisine: [],
+	getResturantDetails: () => {}
 });
 
 export const RestaurantProvider = ({ children }) => {
   const [state, dispatch] = useReducer(restaurantReducer, initialState);
+  const getResturantDetails = (restId) => {
+	return state?.restaurants?.find(({id}) => id == restId);
+  }
   return (
     <RestaurantContext.Provider
       value={{
 		cuisines: state.cuisines,
     	restaurants: state.restaurants,
 		restaurantDispatch: dispatch,
-		currentCuisine: state.currentCuisine
+		currentCuisine: state.currentCuisine,
+		getResturantDetails
       }}
     >
       {children}

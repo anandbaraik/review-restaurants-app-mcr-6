@@ -34,7 +34,7 @@ const Home = () => {
                                         <Heading as='h5' size='ms' marginTop={5}>
                                             {`Dishes by ${cuisine?.name}`}
                                         </Heading>
-                                        <ResturantCard resturant={cuisine?.name} menus={cuisine?.menu}/>
+                                        <ResturantCard restId={cuisine?.id} resturant={cuisine?.name} menus={cuisine?.menu}/>
                                     </Box>
                                 )
                             })
