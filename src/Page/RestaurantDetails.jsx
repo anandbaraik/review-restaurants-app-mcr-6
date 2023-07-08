@@ -22,7 +22,7 @@ const RestaurantDetails = () => {
 			</Link>
 		</Flex>
 		<Box>
-			<Flex justifyContent={'space-around'} alignItems={'center'} gap={10}>
+			<Flex justifyContent="space-between" alignItems={'center'} gap={10}>
 				<Flex flexDir={'column'}>
 					<Heading  as='h1' size='2xl' marginTop={5}>
 						{resturant?.name}
@@ -62,29 +62,21 @@ const RestaurantDetails = () => {
 					resturant?.ratings?.map((rating, index) => {
 						return (
 							<>
-								<Box key={index} display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={10} flexDir={'column'}>
-									<Flex justifyContent={'space-between'} alignItems={'center'} gap={10} >
-										<Flex alignItems={'center'}>
-											<Avatar src={rating?.pp}/>
-											<Box ml='3'>
-												<Text fontWeight='bold'>
-													{rating?.revName}
-												</Text>
-											</Box>
+								<Flex flexDir="column" marginTop={3} gap={2} key={index}>
+									<Flex justifyContent="space-between" alignItems={'center'}>
+										<Flex gap={2}>
+											<Avatar src={rating.pp} size="sm" />
+											<Text fontWeight="bold">{rating.revName}</Text>
 										</Flex>
-										<Flex>
+										<Flex >
 											<Badge variant='solid' colorScheme='green'>
 												{rating?.rating} <Icon as={StarIcon}></Icon>
 											</Badge>
 										</Flex>
 									</Flex>
-									<Box>
-										<Text>
-											{rating?.comment}
-										</Text>
-									</Box>
-								</Box>
-								<Divider/>
+									<Text>{rating?.comment}</Text>
+									<Divider borderColor="gray.600" />
+								</Flex>
 							</>
 						)
 					})

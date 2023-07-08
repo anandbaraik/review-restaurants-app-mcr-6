@@ -1,20 +1,47 @@
-import {Avatar,Box,Button,Divider,Flex,FormControl,FormLabel,Image,Input,Modal,ModalBody,ModalCloseButton,ModalContent,ModalFooter,ModalHeader,ModalOverlay,Spacer,Spinner,Textarea, Text, Select} from '@chakra-ui/react';
-import React, { useRef, useState } from 'react';
+import {Box,Button,Divider,Flex,FormControl,FormLabel,Modal,ModalBody,ModalCloseButton,ModalContent,ModalFooter,ModalHeader,ModalOverlay,Spacer,Textarea, Select, useToast} from '@chakra-ui/react';
+import React, {useState } from 'react';
 import { useRestaurant } from '../context/RestaurantContext';
 const ReviewModal = ({ isOpen, onClose, restId }) => {
     const {restaurantDispatch} = useRestaurant();
+    const toast = useToast()
     const [review, setReview] = useState({
-                rating: "",
-                comment: "",
-                pp: "https://pbs.twimg.com/profile_images/1296817987920396289/aDAUAvaZ_400x400.jpg",
-                revName: "Anand"
-            });
+        rating: "",
+        comment: "",
+        pp: "https://pbs.twimg.com/profile_images/1296817987920396289/aDAUAvaZ_400x400.jpg",
+        revName: "Anand"
+    });
+
     const addReview = (e) => {
         e.preventDefault();
+        if(review.rating.trim().length == 0) {
+            toast({
+                title: 'Please choose rating',
+                status: 'error',
+                duration: 1000,
+                position: 'top-right',
+                isClosable: true,
+              })
+            return;
+        } else if(review.comment.trim().length == 0) {
+            toast({
+                title: 'Please write comment',
+                status: 'error',
+                position: 'top-right',
+                duration: 1000,
+                isClosable: true,
+              })
+            return;
+        }
         restaurantDispatch({type: 'ADD_REVIEW', payload: {review: review, restId: restId}})
         onClose();
+        setReview({
+            rating: "",
+            comment: "",
+            pp: "https://pbs.twimg.com/profile_images/1296817987920396289/aDAUAvaZ_400x400.jpg",
+            revName: "Anand"
+        });
     }
-    const cancelPostHandler = () => {
+    const cancelReviewHandler = () => {
         setReview({
             rating: "",
             comment: "",
@@ -22,15 +49,18 @@ const ReviewModal = ({ isOpen, onClose, restId }) => {
             revName: "Anand"
         });
         onClose();
-      };
+    };
+
     const inputHandler = (e, inputType) => {
         setReview(prev => ({ ...prev, [inputType]: e.target.value }));
-      };
+    };
+
     return (
 		<Modal
 		isOpen={isOpen}
-		onClose={cancelPostHandler}
+		onClose={cancelReviewHandler}
 		size="xl"
+         isCentered
 	  >
 		<ModalOverlay bg='blackAlpha.300' backdropFilter='blur(0.5rem)' />
 		<ModalContent w={{ base: '90vw' }}>

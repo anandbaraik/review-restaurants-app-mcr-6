@@ -14,6 +14,9 @@ const ResturantCard = ({restId, resturant, menus}) => {
                             src={menu?.imgSrc}
                             alt={menu?.name}
                             borderRadius='lg'
+                            h="15rem"
+                            objectFit="cover"
+                            borderTopRadius="0.5rem"
                             />
                             <Stack mt='6' spacing='3'>
                             <Heading size='md'>
