@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useRestaurant } from '../context/RestaurantContext';
-import { Badge, Box, Button, Divider, Flex, Heading, Icon, IconButton, Text, Avatar } from '@chakra-ui/react';
+import { Badge, Box, Button, Divider, Flex, Heading, Icon, IconButton, Text, Avatar, useDisclosure } from '@chakra-ui/react';
 import { ArrowBackIcon, StarIcon } from '@chakra-ui/icons'
+import ReviewModal from '../components/ReviewModal';
 const RestaurantDetails = () => {
   const {id} = useParams();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const {getResturantDetails} = useRestaurant();
   const resturant = getResturantDetails(id);
   const menus = resturant?.menu?.reduce((acc, {name}) => [...acc, name], []).join(', ');
-  console.log(id, resturant);
   return (
     <Box margin={10}>
 		<Flex>
@@ -38,9 +39,14 @@ const RestaurantDetails = () => {
 				</Flex>
 				<Flex>
 					<Button colorScheme='pink' variant='solid'
-						onClick={() => {}}>
+						onClick={onOpen}>
 						Add Review
 					</Button>
+					<ReviewModal
+                        isOpen={isOpen}
+                        onClose={onClose}
+						restId={id}
+                      />
 				</Flex>
 			</Flex>
 		</Box>

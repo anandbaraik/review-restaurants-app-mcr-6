@@ -13,6 +13,17 @@ export const restaurantReducer = (state, { type, payload }) => {
                 ...state,
                 currentCuisine: [...state.restaurants].filter(({cuisine_id}) => cuisine_id == payload)
             };
+        case 'ADD_REVIEW':
+            const updatedRes = [...state.restaurants].map(restaurant => {
+                if(restaurant.id == payload.restId) {
+                    return {...restaurant, ratings:[...restaurant.ratings, payload.review]};
+                }
+                return restaurant;
+            });
+            return {
+                ...state,
+                restaurants: updatedRes
+            };
         default:
             return  state;
     }
