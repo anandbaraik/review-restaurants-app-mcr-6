@@ -4,20 +4,19 @@ import { initialState, restaurantReducer } from "../reducer/restaurantReducer";
 const RestaurantContext = createContext({
 	cuisines: [],
     restaurants: [],
-	restaurantDispatch : () => {}
+	restaurantDispatch : () => {},
+	currentCuisine: []
 });
 
 export const RestaurantProvider = ({ children }) => {
   const [state, dispatch] = useReducer(restaurantReducer, initialState);
-  const [activeCuisine, setActiveCuisine] = useState("");
   return (
     <RestaurantContext.Provider
       value={{
 		cuisines: state.cuisines,
     	restaurants: state.restaurants,
 		restaurantDispatch: dispatch,
-		activeCuisine,
-		setActiveCuisine
+		currentCuisine: state.currentCuisine
       }}
     >
       {children}

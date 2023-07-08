@@ -2,15 +2,16 @@ import { cuisineData, restaurantsData } from "../assets/asset";
 
 export const initialState = {
     cuisines: cuisineData,
-    restaurants: restaurantsData
+    restaurants: restaurantsData,
+    currentCuisine: []
 };
 
 export const restaurantReducer = (state, { type, payload }) => {
     switch (type) {
-        case 'INITIALIZE_ALL_USERS':
+        case 'SET_CUISINE':
             return {
                 ...state,
-                users: [...payload]
+                currentCuisine: [...state.restaurants].filter(({cuisine_id}) => cuisine_id == payload)
             };
         default:
             return  state;
