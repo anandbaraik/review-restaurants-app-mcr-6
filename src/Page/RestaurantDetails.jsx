@@ -61,23 +61,21 @@ const RestaurantDetails = () => {
 				(resturant?.ratings?.length > 0) && (
 					resturant?.ratings?.map((rating, index) => {
 						return (
-							<>
-								<Flex flexDir="column" marginTop={3} gap={2} key={index}>
-									<Flex justifyContent="space-between" alignItems={'center'}>
-										<Flex gap={2}>
-											<Avatar src={rating.pp} size="sm" />
-											<Text fontWeight="bold">{rating.revName}</Text>
-										</Flex>
-										<Flex >
-											<Badge variant='solid' colorScheme='green'>
-												{rating?.rating} <Icon as={StarIcon}></Icon>
-											</Badge>
-										</Flex>
+							<Flex flexDir="column" marginTop={3} gap={2} key={index}>
+								<Flex justifyContent="space-between" alignItems={'center'}>
+									<Flex gap={2}>
+										<Avatar src={rating.pp} size="sm" />
+										<Text fontWeight="bold">{rating.revName}</Text>
 									</Flex>
-									<Text>{rating?.comment}</Text>
-									<Divider borderColor="gray.600" />
+									<Flex >
+										<Badge variant='solid' colorScheme='green'>
+											{rating?.rating} <Icon as={StarIcon}></Icon>
+										</Badge>
+									</Flex>
 								</Flex>
-							</>
+								<Text>{rating?.comment}</Text>
+								<Divider borderColor="gray.600" />
+							</Flex>
 						)
 					})
 				)
